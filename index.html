@@ -77,6 +77,12 @@
         .wrong-list { list-style: none; padding: 15px; margin-bottom: 20px; background: #fff3f3; border: 1px solid #ffcdd2; text-align: left; border-radius: 10px; }
         .ans-user { color: #d32f2f; margin-right: 15px; }
         .ans-correct { color: #1976d2; font-weight: bold; }
+
+        .exit-btn {position: absolute; top: 15px; right: 5%; background: #e53935;color: white; border: none; border-radius: 8px; padding: 8px 15px;
+            font-size: 1rem; font-weight: bold; cursor: pointer; z-index: 50; box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+            transition: transform 0.1s;
+        }
+        .exit-btn:active { transform: translateY(2px); }
         
         @media (max-height: 700px) {
             #hurdle-container { transform: scale(0.8); margin-bottom: 150px; }
@@ -84,11 +90,7 @@
             .key { height: 50px; }
             .btn-common { padding: 12px 20px; font-size: 1.1rem; }
         }
-    .exit-btn {position: absolute; top: 15px; right: 5%; background: #e53935;color: white; border: none; border-radius: 8px; padding: 8px 15px;
-            font-size: 1rem; font-weight: bold; cursor: pointer; z-index: 50; box-shadow: 0 3px 5px rgba(0,0,0,0.2);
-            transition: transform 0.1s;
-        }
-        .exit-btn:active { transform: translateY(2px); }    
+       
     </style>
 </head>
 <body>
