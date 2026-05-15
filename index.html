@@ -177,6 +177,7 @@
         </div>
         
         <div id="combo-pop" class="combo-badge">0 COMBO!</div>
+        <div id="milestone-pop" class="milestone-badge">1000점 돌파! 🚀</div>
         <div id="hurdle-container">
             <div class="hurdle-bar" id="hurdle-bar"><div id="math-problem"></div></div>
             <div class="hurdle-leg leg-left"></div><div class="hurdle-leg leg-right"></div>
@@ -234,12 +235,28 @@
         let taTimer = null;
         let taCorrectCount = 0;
         let taWrongCount = 0;
-
+           let lastMilestone = 0;
         let lv = 1, score = 0, combo = 0, streak = 0, strikes = 0;
         let startTime, endTime, currentInput = "", currentAns = "", currentProblemTex = "", studentId = "";
         let wrongLog = [];
         const bgColors = ['#F0FAFF','#81D4FA','#03A9F4','#FFCC80','#FF8A65','#A9BCF5', '#B39DDB']; 
-
+function checkMilestone() {
+            let currentMilestone = Math.floor(score / 1000);
+            // 앞자리 수가 바뀌었고(예: 0->1, 1->2), 점수가 1000점 이상일 때 실행
+            if (currentMilestone > lastMilestone && currentMilestone > 0) {
+                lastMilestone = currentMilestone;
+                let msPop = document.getElementById('milestone-pop');
+                msPop.innerText = (currentMilestone * 1000) + "점 돌파! 🚀";
+                msPop.style.opacity = "1";
+                msPop.style.transform = "scale(1.1)";
+                
+                // 1.5초 동안 보여준 후 다시 숨기기
+                setTimeout(() => {
+                    msPop.style.opacity = "0";
+                    msPop.style.transform = "scale(0.5)";
+                }, 1500); 
+            }
+        }
         function fmt(n) { return n < 0 ? `(${n})` : `${n}`; }
         function getGCD(a,b) { a=Math.abs(a); b=Math.abs(b); while(b>0) { let t=b; b=a%b; a=t; } return a; }
         function fmtFrac(n,d) { if(n%d===0) return fmt(n/d); let g=getGCD(n,d); n/=g; d/=g; let isNeg=(n/d)<0; let tex=`\\frac{${Math.abs(n)}}{${Math.abs(d)}}`; if(isNeg) tex=`-${tex}`; return isNeg?`\\left( ${tex} \\right)`:tex; }
@@ -495,6 +512,7 @@
                 if(isCorrect) {
                     taCorrectCount++;
                     score += 10 + (combo*5);
+                    checkMilestone();
                     combo++;
                     document.getElementById('hurdle-container').classList.add('hurdle-pass');
                     if(combo>1){let cb=document.getElementById('combo-pop'); cb.innerText=combo+" COMBO!"; cb.style.opacity="1"; cb.style.transform="scale(1.2)"; setTimeout(()=>{cb.style.opacity="0";},800);}
@@ -511,7 +529,7 @@
             } else {
                 // 허들 모드
                 if(!isCorrect){triggerFail();return;}
-                score+=(lv===7?100:lv*10)+(combo*5); combo++; streak++; 
+                score+=(lv===7?100:lv*10)+(combo*5); checkMilestone();combo++; streak++; 
                 if(combo>1){let cb=document.getElementById('combo-pop'); cb.innerText=combo+" COMBO!"; cb.style.opacity="1"; cb.style.transform="scale(1.2)"; setTimeout(()=>{cb.style.opacity="0";},800);}
                 document.getElementById('hurdle-container').classList.add('hurdle-pass');
                 setTimeout(()=>{ 
@@ -680,7 +698,7 @@
      
         function resetGame() {
             if(taTimer) { clearInterval(taTimer); taTimer = null; }
-            lv = 1; score = 0; combo = 0; streak = 0; strikes = 0;
+            lv = 1; score = 0; combo = 0; streak = 0; strikes = 0;lastMilestone = 0;
             wrongLog = [];
             
             let btn = document.getElementById('submit-btn');
