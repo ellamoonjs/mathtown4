@@ -10,6 +10,7 @@
     
     <script>MathJax = { options: { enableMenu: false }, startup: { typeset: false } };</script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
     <style>
         :root { --bg-1: #F0FAFF; --bg-2: #81D4FA; --bg-3: #03A9F4; --bg-4: #FFCC80; --bg-5: #FF8A65; --bg-6: #A9BCF5; --bg-7: #B39DDB; --bg-ta: #E8F5E9; }
@@ -236,6 +237,7 @@
         let taCorrectCount = 0;
         let taWrongCount = 0;
            let lastMilestone = 0;
+        const fanfareSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3');
         let lv = 1, score = 0, combo = 0, streak = 0, strikes = 0;
         let startTime, endTime, currentInput = "", currentAns = "", currentProblemTex = "", studentId = "";
         let wrongLog = [];
@@ -249,7 +251,16 @@ function checkMilestone() {
                 msPop.innerText = (currentMilestone * 1000) + "점 돌파! 🚀";
                 msPop.style.opacity = "1";
                 msPop.style.transform = "scale(1.1)";
-                
+
+                fanfareSound.currentTime = 0; // 연속으로 울려도 처음부터 재생되도록 세팅
+                fanfareSound.play().catch(e => console.log("오디오 재생 에러:", e));
+                confetti({
+                    particleCount: 150,    // 폭죽 조각 개수
+                    spread: 80,            // 퍼지는 각도
+                    origin: { y: 0.6 },    // 터지는 시작 위치 (화면 약간 아래쪽 중앙)
+                    zIndex: 300,           // 다른 화면 요소들보다 맨 위에 보이도록 설정
+                    colors: ['#FFD54F', '#FF8A65', '#81D4FA', '#A9BCF5', '#4caf50'] // 알록달록한 색상
+                });
                 // 1.5초 동안 보여준 후 다시 숨기기
                 setTimeout(() => {
                     msPop.style.opacity = "0";
