@@ -86,7 +86,22 @@
         #ui-panel { position: absolute; top: 55px; width: 90%; display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: bold; color: #333; z-index: 20; left: 0; right: 0; margin: 0 auto; }
         #progress-bar-container { position: absolute; top: 90px; width: 85%; height: 30px; display: flex; justify-content: space-between; align-items: flex-end; z-index: 20; left: 0; right: 0; margin: 0 auto; border-bottom: 3px solid #8D6E63; }
         .combo-badge { position: absolute; top: 120px; font-size: 2.0rem; color: #ff4081; opacity: 0; transform: scale(0.5); transition: 0.3s; pointer-events: none; text-shadow: 2px 2px white; z-index: 30; width: 100%; left: 0; text-align: center; }
-    
+    .milestone-badge {
+            position: absolute;
+            top: 35%;
+            font-size: 3.5rem;
+            color: #FFD54F;
+            font-weight: 900;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+            text-shadow: 2px 2px 0 #e65100, -2px -2px 0 #e65100, 2px -2px 0 #e65100, -2px 2px 0 #e65100, 4px 4px 10px rgba(0,0,0,0.5);
+            z-index: 60;
+            width: 100%;
+            left: 0;
+            text-align: center;
+        }
         @media (max-height: 700px) {
             #hurdle-container { transform: scale(0.8); margin-bottom: 150px; }
             #keypad { bottom: 10px; }
